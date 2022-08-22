@@ -1,3 +1,4 @@
+
 package Example;
 
 import java.security.KeyStore.Entry;
@@ -98,10 +99,10 @@ public class PlanetaryData {
 		PlanetData.add(P6);
 
 		int count = countOfMoons(PlanetData);
-		System.out.println("Total count  of Moons is" + count);
+		System.out.println("Total count  of Moons for planets having rings=" + count);
 
 		ArrayList<String> mostFoundGassesList = getMostFoundGas(PlanetData);
-		
+		System.out.println("Gas that are found on maximum planets:");
 		System.out.println(mostFoundGassesList);
 
 	}
