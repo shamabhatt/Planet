@@ -16,16 +16,19 @@ public class PlanetaryData {
 		for (int i = 0; i < PlanetData.size(); i++) {
 
 			Planet planet = PlanetData.get(i);
-			// System.out.println(planet.toString());
+		
+			
+			if(planet.getHasrings()) {
 			Totalcount = planet.getNoOfMoons() + Totalcount;
+			}
 		}
 
 		return Totalcount;
 	}
 
-	public static String getMostFoundGas(ArrayList<Planet> PlanetData) {
+	public static ArrayList<String> getMostFoundGas(ArrayList<Planet> PlanetData) {
 
-		String mostFoundGas = "";
+		
 		int Totalcount = 0;
 
 		Map<String, Integer> surfacegasses = new HashMap<>();
@@ -41,7 +44,6 @@ public class PlanetaryData {
 					if (surfacegasses.containsKey(gasses[j])) {
 						surfacegasses.put(gasses[j], surfacegasses.get(gasses[j]) + 1);
 						if (Totalcount < surfacegasses.get(gasses[j])) {
-							mostFoundGas = gasses[j];
 							Totalcount = surfacegasses.get(gasses[j]);
 						}
 
@@ -54,9 +56,21 @@ public class PlanetaryData {
 		}
 
 		System.out.println(surfacegasses);
-		System.out.println(mostFoundGas);
-
-		return mostFoundGas;
+		
+		ArrayList<String> mostFoundGassesList=new ArrayList<String>();
+		
+		for(Map.Entry<String,Integer> entry : surfacegasses.entrySet() ) {
+			
+			if(Totalcount== entry.getValue()) {
+				
+				mostFoundGassesList.add(entry.getKey());
+			}
+			
+		}
+		
+		
+		
+		return mostFoundGassesList;
 	}
 
 	public static void main(String[] args) {
@@ -71,9 +85,9 @@ public class PlanetaryData {
 		Planet P1 = new Planet("Mercury", P1Gasses, 0, false);
 		Planet P2 = new Planet("Venus", P2Gasses, 0, false);
 		Planet P3 = new Planet("Earth", P3Gasses, 1, false);
-		Planet P4 = new Planet("Jupitor", P4Gasses, 79, false);
-		Planet P5 = new Planet("Saturm", P5Gasses, 83, false);
-		Planet P6 = new Planet("Uranus", P6Gasses, 27, false);
+		Planet P4 = new Planet("Jupitor", P4Gasses, 79, true);
+		Planet P5 = new Planet("Saturm", P5Gasses, 83, true);
+		Planet P6 = new Planet("Uranus", P6Gasses, 27, true);
 
 		ArrayList<Planet> PlanetData = new ArrayList<Planet>();
 		PlanetData.add(P1);
@@ -84,12 +98,12 @@ public class PlanetaryData {
 		PlanetData.add(P6);
 
 		int count = countOfMoons(PlanetData);
-		System.out.println("Total count  of Moons" + count);
+		System.out.println("Total count  of Moons is" + count);
 
-		String MostFoundGas = getMostFoundGas(PlanetData);
-		System.out.println(" MostFound gas" + MostFoundGas);
+		ArrayList<String> mostFoundGassesList = getMostFoundGas(PlanetData);
+		
+		System.out.println(mostFoundGassesList);
 
 	}
 
 }
-
